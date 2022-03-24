@@ -11,8 +11,8 @@ body{
     margin-top:-200px;   /* negative half of height above */
 }
 .container{
-    height: 500px;
-    width: 500px;
+    height: 600px;
+    width: 600px;
 }
 
 .board{
@@ -47,8 +47,8 @@ body{
     }
 
 img{
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
 }
 
 .win{

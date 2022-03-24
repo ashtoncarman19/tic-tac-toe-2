@@ -27,9 +27,10 @@ console.log(board, winnerCombo, gameWinner)
 const makeMove = (function () {
 const square = document.querySelectorAll(".card")
 square.forEach(square =>{
+    square.textContent = 'ㅤ'
     square.addEventListener('click', e => {
         if (playerOne.turn == true && gameWinner == null
-            && e.target.textContent == ''){
+            && e.target.textContent == 'ㅤ'){
             board.splice(e.target.id, 1, 'x')
             square.innerHTML = playerOne.icon
             playerOne.turn = false;
@@ -40,7 +41,7 @@ square.forEach(square =>{
         }
 
         else if(playerTwo.turn == true && gameWinner == null
-            && e.target.textContent == ''){
+            && e.target.textContent == 'ㅤ'){
             board.splice(e.target.id, 1, 'o')
             square.innerHTML = playerTwo.icon
             playerOne.turn = true;
@@ -58,7 +59,7 @@ square.forEach(square =>{
 })
 })
 makeMove()
-
+//creates a div with the class 'win' and puts it in the 'board' div
 function alertWinner(a){
     maker = document.createElement('div')
     boardDiv = document.querySelector('.board')
