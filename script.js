@@ -4,8 +4,8 @@ const playerFactory = (name , icon, turn) => {
     return { name , icon , turn, yourTurn }
 }
 
-const playerOne = playerFactory('Player One', "X", true);
-const playerTwo = playerFactory('Player Two', "𝗼", false);
+const playerOne = playerFactory('Cat', "<img src = 'cat.png' />", true);
+const playerTwo = playerFactory('Dog', "<img src = 'dog.png' />", false);
 console.log(playerOne , playerTwo)
 
 const winningCombos = [
@@ -30,8 +30,8 @@ square.forEach(square =>{
     square.addEventListener('click', e => {
         if (playerOne.turn == true && gameWinner == null
             && e.target.textContent == ''){
-            board.splice(e.target.id, 1, playerOne.icon)
-            square.textContent = playerOne.icon
+            board.splice(e.target.id, 1, 'x')
+            square.innerHTML = playerOne.icon
             playerOne.turn = false;
             playerTwo.turn = true
             console.log(board)
@@ -39,10 +39,10 @@ square.forEach(square =>{
 
         }
 
-        if(playerTwo.turn == true && gameWinner == null
+        else if(playerTwo.turn == true && gameWinner == null
             && e.target.textContent == ''){
-            board.splice(e.target.id, 1, playerTwo.icon)
-            square.textContent = playerTwo.icon
+            board.splice(e.target.id, 1, 'o')
+            square.innerHTML = playerTwo.icon
             playerOne.turn = true;
             playerTwo.turn = false
             console.log(board)
@@ -59,15 +59,23 @@ square.forEach(square =>{
 })
 makeMove()
 
+function alertWinner(a){
+    maker = document.createElement('div')
+    boardDiv = document.querySelector('.board')
+    maker.textContent = a + " is the winner!"
+    maker.className = 'win'
+    boardDiv.appendChild(maker)
+}
+
 function checkForWinner(){
     turns++;
 
     // Seperates each player into different arrays based on 
     // x or o moves
     let xPlays = board.reduce((a, e, i) => 
-    (e === playerOne.icon) ? a.concat(i) : a, []);
+    (e === 'x') ? a.concat(i) : a, []);
     let oPlays = board.reduce((a, e, i) => 
-    (e === playerTwo.icon) ? a.concat(i) : a, []);
+    (e === 'o') ? a.concat(i) : a, []);
     // Loop iterates over each winningCombo array 
     for(let [index, combo] of winningCombos.entries()) {
         // Check if player moves index is equal to combo array index 
@@ -75,13 +83,13 @@ function checkForWinner(){
             
             gameWinner = playerOne.name;
             winnerCombo = combo;
-            alert( gameWinner+ " is the winner!")
+            alertWinner(gameWinner)
             
         } else if (combo.every(elem => oPlays.indexOf(elem) > -1)) {
             
             gameWinner = playerTwo.name;
             winnerCombo = combo;
-            alert(gameWinner+ " is the winner!")
+            alertWinner(gameWinner)
 
         } else if (gameWinner == null && gameWinner == undefined 
             && turns == 9) {
