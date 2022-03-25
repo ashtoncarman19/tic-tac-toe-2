@@ -24,7 +24,7 @@ let winnerCombo = []
 let gameWinner = null
 console.log(board, winnerCombo, gameWinner)
 
-const makeMove = (function () {
+const playGame = (function () {
 const square = document.querySelectorAll(".card")
 square.forEach(square =>{
     square.textContent = 'ㅤ'
@@ -58,15 +58,6 @@ square.forEach(square =>{
     })
 })
 })
-makeMove()
-//creates a div with the class 'win' and puts it in the 'board' div
-function alertWinner(a){
-    maker = document.createElement('div')
-    boardDiv = document.querySelector('.board')
-    maker.textContent = a + " is the winner!"
-    maker.className = 'win'
-    boardDiv.appendChild(maker)
-}
 
 function checkForWinner(){
     turns++;
@@ -84,32 +75,61 @@ function checkForWinner(){
             
             gameWinner = playerOne.name;
             winnerCombo = combo;
-            alertWinner(gameWinner)
+            alertWinner(gameWinner + " is the winner!")
             
         } else if (combo.every(elem => oPlays.indexOf(elem) > -1)) {
             
             gameWinner = playerTwo.name;
             winnerCombo = combo;
-            alertWinner(gameWinner)
+            alertWinner(gameWinner + " is the winner!")
 
         } else if (gameWinner == null && gameWinner == undefined 
             && turns == 9) {
-            gameWinner = 'tie';
+            gameWinner = 'tie!';
             winnerCombo = combo;
-            alert("its a tie")
+            alertWinner("it's a "+ gameWinner)
         };
     };
+}
+
+function resetButton(){
+maker = document.createElement('div')
+    winDiv = document.querySelector('.win')
+    maker.textContent = "Play again?"
+    winDiv.appendChild(maker)
 }
 
 function gameReset(){
     const square = document.querySelectorAll(".card")
         square.forEach(square =>{
-            square.textContent = ""
+            square.textContent = "ㅤ"
         })
-    winner = null;
+    gameWinner = null;
     playerOne.turn = true;
     playerTwo.turn = false;
     turns = 0;
-    board.splice(0,board.length, '')
-    console.log(board, winner, playerOne.turn, playerTwo.turn)
+    board.splice(0,9, '', '', '', '', '', '', '', '')
+    console.log(board, gameWinner, playerOne.turn, playerTwo.turn)
+    playGame()
+
 }
+
+//creates a div with the class 'win' and puts it in the 'board' div
+function alertWinner(text){
+    winMaker = document.createElement('div')
+    btnMaker = document.createElement('div')
+    boardDiv = document.querySelector('.board')
+    winMaker.textContent = text
+    btnMaker.textContent = "Play again?"
+    winMaker.className = 'win'
+    btnMaker.id = 'resetBtn'
+    boardDiv.appendChild(winMaker)
+    winMaker.appendChild(btnMaker)
+    btnMaker.addEventListener('click', () =>{
+        winMaker.parentNode.removeChild(winMaker)
+        gameReset();
+        playGame();
+    })
+}
+
+playGame();
