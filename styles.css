@@ -1,10 +1,15 @@
 body{
     font-weight: 1000;
 }
+.title{
+    margin-top: 10%;
+    text-align: center;
+    font-size: xx-large;
+}
 .center{
     position:absolute;
     top:40%;
-    left:50%;
+    left:42%;
     width:400px;  /* adjust as per your needs */
     height: 100px;   /* adjust as per your needs */
     margin-left:-200px;   /* negative half of width above */
